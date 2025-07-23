@@ -6,5 +6,6 @@ import com.jsp.roam_smart.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     Optional<User> findByName(String name);
+    boolean existsByEmail(String email);
 
 }
