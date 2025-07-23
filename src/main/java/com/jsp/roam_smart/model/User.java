@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-@Data                         
+@Data                        
 @NoArgsConstructor            
 @AllArgsConstructor
 @Builder                      
@@ -32,6 +32,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Role role = Role.MEMBER;
 
     @Column(nullable = false)
