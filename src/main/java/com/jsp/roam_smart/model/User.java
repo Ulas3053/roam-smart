@@ -1,9 +1,21 @@
 package com.jsp.roam_smart.model;
+
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
+@Data                         
+@NoArgsConstructor            
+@AllArgsConstructor
+@Builder                      
 public class User {
+
+    public enum Role {
+        MEMBER, ADMIN
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,14 +32,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role = Role.MEMBER; 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Role role = Role.MEMBER;
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
-    public enum Role {
-        MEMBER, ADMIN
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 }
