@@ -1,6 +1,8 @@
 package com.jsp.roam_smart.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -20,6 +22,10 @@ public class User {
     @Column(nullable = false)
     private Role role = Role.MEMBER; 
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
     public enum Role {
         MEMBER, ADMIN
