@@ -10,32 +10,33 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    //ive added spring security config
-    //this is a basic config to disable csrf and defaultt form login
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // ❌ Disable CSRF for REST API
-            .formLogin(form -> form.disable()) // ❌ Disable Spring’s default login page
-            .httpBasic(httpBasic -> httpBasic.disable()) // ❌ Disable browser auth popup
-            /* .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll() // ✅ Allow register & login
-                .anyRequest().authenticated() // 🔒 Everything else must be authenticated
-            ) */
-           .authorizeHttpRequests(auth -> auth
-    .anyRequest().permitAll()  // Allow everything temporarily
-)
-
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(
+                    "/v3/api-docs",
+                    "/v3/api-docs/**",
+                    "/swagger-ui.html",
+                    "/swagger-ui/**",
+                    "/swagger-resources/**",
+                    "/webjars/**",
+                    "/api/auth/**",
+                    "/error"
+                ).permitAll()
+                .anyRequest().authenticated()
+            )
             .sessionManagement(sess -> sess
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 🟡 Optional, keeps it stateless
-            ); 
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            );
 
         return http.build();
     }
-
 }
