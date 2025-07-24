@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.roam_smart.dto.UserDTO;
 import com.jsp.roam_smart.service.AuthService;
+
+import jakarta.mail.MessagingException;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -24,7 +27,7 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<Map<String, Object>> register(@RequestBody UserDTO userDTO) throws MessagingException {
         authService.register(userDTO);
         Map<String,Object> map =new LinkedHashMap<>();
         map.put("message", "User registered successfully");
