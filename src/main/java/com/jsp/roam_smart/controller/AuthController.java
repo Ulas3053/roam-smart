@@ -8,12 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.roam_smart.dto.UserDTO;
 import com.jsp.roam_smart.service.AuthService;
-
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -27,11 +28,20 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, Object>> register(@RequestBody UserDTO userDTO) throws MessagingException {
-        authService.register(userDTO);
+    public ResponseEntity<Map<String, Object>> register(@RequestBody UserDTO userDTO,HttpSession session) throws MessagingException {
+        authService.register(userDTO,session);
         Map<String,Object> map =new LinkedHashMap<>();
-        map.put("message", "User registered successfully");
-        map.put("user", userDTO);
+        map.put("message", "check email for otp");
+        //map.put("user", userDTO);
         return ResponseEntity.status(201).body(map);
     }
+    @PostMapping("/otp")
+    public ResponseEntity<Map<String, Object>> verifyOtp(@RequestParam int otp,HttpSession session) throws MessagingException {
+        authService.verifyOtp(otp,session);
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("message", "OTP verified successfully");
+        map.put("user", session.getAttribute("userDTO"));
+        return ResponseEntity.status(201).body(map);
+    }
+    
 }
