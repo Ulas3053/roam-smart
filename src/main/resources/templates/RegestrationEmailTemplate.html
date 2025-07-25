@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Your OTP Code - RoamSmart</title>
+    <style>
+      body {
+        background: linear-gradient(135deg, #f9d423 0%, #ffe066 100%);
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        background: #fffbe6;
+        max-width: 400px;
+        margin: 40px auto;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(249, 212, 35, 0.18),
+          0 4px 24px rgba(45, 124, 242, 0.1);
+        padding: 40px 28px;
+        text-align: center;
+        border: 2px solid #f9d423;
+      }
+      .greeting {
+        font-size: 1.5em;
+        color: #2d7cf2;
+        margin-bottom: 18px;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      .otp-label {
+        font-size: 1.15em;
+        color: #f9d423;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      .otp-code {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(90deg, #f9d423 0%, #2d7cf2 100%);
+        padding: 14px 0;
+        border-radius: 10px;
+        letter-spacing: 8px;
+        margin-bottom: 26px;
+        box-shadow: 0 2px 12px rgba(45, 124, 242, 0.18);
+      }
+      .info {
+        color: #555;
+        font-size: 1em;
+        margin-bottom: 0;
+      }
+      strong {
+        color: #2d7cf2;
+      }
+      .container {
+        box-shadow: 0 0 24px 4px #ffe066;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="greeting">
+        Congratulations, <span th:text="${userName}">User</span>!
+      </div>
+      <div class="otp-label">
+        You have successfully registered on RoamSmart.
+      </div>
+      <div style="margin: 20px 0">
+        <strong>Name:</strong> <span th:text="${userName}">User</span><br />
+        <strong>Phone:</strong> <span th:text="${phone}">+1234567890</span
+        ><br />
+        <strong>Email:</strong> <span th:text="${email}">user@example.com</span>
+      </div>
+      <p class="info">
+        Welcome to RoamSmart! We're excited to have you on board.<br />
+        If you have any questions, feel free to contact our support team.
+      </p>
+    </div>
+  </body>
+</html>
