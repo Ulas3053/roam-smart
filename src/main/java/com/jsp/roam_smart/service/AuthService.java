@@ -26,8 +26,8 @@ public class AuthService {
     private Random random;
     @Autowired
     private OtpMailService otpMailService;
-    @Autowired
-    private EmailService emailService;
+   // @Autowired
+   // private EmailService emailService;
     @Autowired
     private RegestrationEmail regestrationEmail;
 

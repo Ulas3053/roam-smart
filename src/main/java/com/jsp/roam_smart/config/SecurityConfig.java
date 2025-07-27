@@ -9,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class SecurityConfig {
@@ -21,6 +22,10 @@ public class SecurityConfig {
     @Bean
     public Random random(){
        return new Random();
+    }
+     @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,7 +40,8 @@ public class SecurityConfig {
                     "/swagger-resources/**",
                     "/webjars/**",
                     "/api/auth/**",
-                    "/error"
+                    "/error",
+                    "/api/place-search/explore"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
