@@ -1,32 +1,29 @@
+/* src/css/login.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
+  margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg, #1124cb, #cedffb);
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
 }
 
-.reg-layout {
-  display: flex;
+.login-layout {
   width: 900px;
-  height: 520px;
+  height: 400px;
+  display: flex;
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
-.reg-left, .reg-right {
-  width: 50%;
+.login-left, .login-right {
+  flex: 1;
   padding: 40px;
   display: flex;
   align-items: center;
@@ -34,62 +31,60 @@ body {
   flex-direction: column;
 }
 
-.reg-right {
+.login-right {
   background: linear-gradient(to bottom right, #4facfe, #00f2fe);
   color: white;
   text-align: center;
 }
 
-.reg-right h1 {
+.login-right h1 {
   font-size: 32px;
   font-weight: 700;
 }
 
-.reg-right p {
+.login-right p {
   font-size: 15px;
   margin-top: 10px;
 }
 
 .form-wrapper {
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
 }
 
 .form-wrapper h2 {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  text-align: center;
   color: #222;
   font-weight: 600;
-  font-size: 22px;
-  text-align: center;
 }
 
 form input {
   width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid #ccc;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  margin-bottom: 14px;
   font-size: 14px;
-  transition: 0.3s;
 }
 
 form input:focus {
   outline: none;
   border-color: #2575fc;
-  box-shadow: 0 0 5px #6a11cb88;
+  box-shadow: 0 0 5px #2575fcaa;
 }
 
 form button {
   width: 100%;
   padding: 12px;
   background: #2575fc;
-  border: none;
   color: white;
+  border: none;
+  font-size: 16px;
   font-weight: bold;
   border-radius: 10px;
-  font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.3s ease;
 }
 
 form button:hover {
@@ -97,29 +92,23 @@ form button:hover {
 }
 
 .msg {
-  text-align: center;
   margin-top: 10px;
-  font-size: 14px;
   color: green;
-}
-
-.login-redirect {
   text-align: center;
-  margin-top: 15px;
-  font-size: 14px;
-  color: #555;
 }
 
-.login-redirect a {
+.reg-redirect {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.reg-redirect a {
   color: #2575fc;
   text-decoration: none;
   font-weight: 500;
 }
 
-.login-redirect a:hover {
+.reg-redirect a:hover {
   text-decoration: underline;
 }
-
-
-
-
