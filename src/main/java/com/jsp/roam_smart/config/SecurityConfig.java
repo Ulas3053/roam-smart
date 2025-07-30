@@ -21,12 +21,14 @@ public class SecurityConfig {
 
     @Bean
     public Random random(){
-       return new Random();
+        return new Random();
     }
-     @Bean
+
+    @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -41,7 +43,8 @@ public class SecurityConfig {
                     "/webjars/**",
                     "/api/auth/**",
                     "/error",
-                    "/api/place-search/**"
+                    "/api/place-search/**",
+                    "/api/weather/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
