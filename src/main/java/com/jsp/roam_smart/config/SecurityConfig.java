@@ -41,7 +41,7 @@ public class SecurityConfig {
                     "/webjars/**",
                     "/api/auth/**",
                     "/error",
-                    "/api/place-search/explore"
+                    "/api/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
