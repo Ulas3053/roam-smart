@@ -1,14 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './pages/Register';
-
+import Otp from './pages/Otp';
+import Login from './pages/Login';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<h1>Welcome to RoamSmart! <Register></Register></h1>} />
-        <Route path="/register" element={<Register></Register>} />
+        <Route path="/" element={<Register />} />
+        <Route path="/verify-otp" element={<Otp />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );

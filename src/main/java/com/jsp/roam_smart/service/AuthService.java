@@ -10,7 +10,6 @@ import com.jsp.roam_smart.exception.BadRequestException;
 import com.jsp.roam_smart.dto.UserDTO;
 import com.jsp.roam_smart.model.User;
 import com.jsp.roam_smart.repository.UserRepository;
-import com.jsp.roam_smart.service.mail.EmailService;
 import com.jsp.roam_smart.service.mail.OtpMailService;
 import com.jsp.roam_smart.service.mail.RegestrationEmail;
 
