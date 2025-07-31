@@ -1,12 +1,12 @@
 /* src/css/homepage.css */
 
 .homepage {
-  width: 100vw;  
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100%;
   background-color: #ffffff;
-  min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
 }
+
 
 .home-content {
   margin: 0 auto;

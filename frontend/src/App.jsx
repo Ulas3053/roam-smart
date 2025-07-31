@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css'; // Ensure you have your global styles imported
 import Register from './pages/Register';
 import Otp from './pages/Otp';
 import Login from './pages/Login';
