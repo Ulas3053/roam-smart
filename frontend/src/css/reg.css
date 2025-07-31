@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -13,12 +13,12 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
-}
+} */
 
 .reg-layout {
   display: flex;
-  width: 900px;
-  height: 520px;
+  width: 1000px;
+  height: 600px;
   background: white;
   border-radius: 20px;
   overflow: hidden;

@@ -11,9 +11,15 @@ const Navbar = () => {
         <span className="brand-name">RoamSmart</span>
       </div>
       <ul className="nav-links">
-        <li>Home</li>
-        <li>Explore</li>
-        <li>Itinerary</li>
+        <li>
+          <a href="#home">Home</a>
+        </li>
+        <li>
+          <a href="#search-places">Explore</a>
+        </li>
+        <li>
+          <a href="#generate-itinerary">Itinerary</a>
+        </li>
         <li>Logout</li>
       </ul>
     </nav>

@@ -41,6 +41,7 @@ const Register = () => {
   };
 
   return (
+    <div className="page-wrapper">
     <div className="reg-layout">
       <div className="reg-left">
         <div className="form-wrapper">
@@ -66,6 +67,7 @@ const Register = () => {
           <p className="tagline">Explore smarter. Plan better.<br />Your intelligent travel partner.</p>
         </div>
       </div>
+    </div>
     </div>
   );
 };

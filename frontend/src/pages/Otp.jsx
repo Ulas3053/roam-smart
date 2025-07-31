@@ -24,6 +24,7 @@ const Otp = () => {
   };
 
   return (
+    <div className="page-wrapper">
     <div className="otp-layout">
       <div className="otp-left">
         <div className="form-wrapper">
@@ -48,6 +49,7 @@ const Otp = () => {
           <p className="tagline">Explore smarter. Plan better.<br />Your intelligent travel partner.</p>
         </div>
       </div>
+    </div>
     </div>
   );
 };
