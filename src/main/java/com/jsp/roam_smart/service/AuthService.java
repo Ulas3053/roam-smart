@@ -15,6 +15,7 @@ import com.jsp.roam_smart.service.mail.RegestrationEmail;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
+
 @Service
 public class AuthService {
     @Autowired
@@ -25,49 +26,46 @@ public class AuthService {
     private Random random;
     @Autowired
     private OtpMailService otpMailService;
-   // @Autowired
-   // private EmailService emailService;
+    // @Autowired
+    // private EmailService emailService;
     @Autowired
     private RegestrationEmail regestrationEmail;
 
     public void register(UserDTO userDTO, HttpSession session) throws MessagingException {
-        
+
         if (userRepository.existsByEmail(userDTO.getEmail())) {
             throw new BadRequestException("Email already exists");
         }
-        if(userRepository.existsByPhone(userDTO.getPhone())){
+        if (userRepository.existsByPhone(userDTO.getPhone())) {
             throw new BadRequestException("Phone number already exists");
         }
-        if(userDTO.getPassword().equals(userDTO.getConfirmPassword())==false){
+        if (userDTO.getPassword().equals(userDTO.getConfirmPassword()) == false) {
             throw new BadRequestException("password and confirm password do not match");
         }
 
-        
-        
-
         // User user=User.builder()
-        //         .name(userDTO.getName())
-        //         .email(userDTO.getEmail())
-        //         .password(passwordEncoder.encode(userDTO.getPassword()))
-        //         .build();
+        // .name(userDTO.getName())
+        // .email(userDTO.getEmail())
+        // .password(passwordEncoder.encode(userDTO.getPassword()))
+        // .build();
         // userRepository.save(user);
 
-
-        //====sending otp to email======================================
+        // ====sending otp to email======================================
         int otp = otp();
-        otpMailService.sendOtpEmail(userDTO.getEmail(),otp,userDTO.getName());
-
+        otpMailService.sendOtpEmail(userDTO.getEmail(), otp, userDTO.getName());
 
         session.setAttribute("otp", otp);
         session.setAttribute("userDTO", userDTO);
     }
-    private int otp(){
-            return random.nextInt(100000, 999999);
-        }
+
+    private int otp() {
+        return random.nextInt(100000, 999999);
+    }
+
     public void verifyOtp(int otp, HttpSession session) throws MessagingException {
         int sessionOtp = (int) session.getAttribute("otp");
         UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
-        if(sessionOtp==otp){
+        if (sessionOtp == otp) {
             User user = User.builder()
                     .name(userDTO.getName())
                     .email(userDTO.getEmail())
@@ -77,11 +75,25 @@ public class AuthService {
             userRepository.save(user);
             session.removeAttribute("otp");
             regestrationEmail.sendRegestrationMail(userDTO.getEmail(), userDTO.getName(), userDTO.getPhone());
-            //emailService.sendEmail(userDTO.getEmail(), "Registration Successful", "You have successfully registered.");
+            // emailService.sendEmail(userDTO.getEmail(), "Registration Successful", "You
+            // have successfully registered.");
         } else {
             session.removeAttribute("otp");
             throw new BadRequestException("Invalid OTP");
         }
     }
-    
+
+    public String login(String email, String rawPassword) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException("Invalid email or password"));
+
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+            throw new BadRequestException("Invalid email or password");
+        }
+
+        // Optional: Generate JWT token here if needed
+
+        return "Login successful!";
+    }
+
 }
