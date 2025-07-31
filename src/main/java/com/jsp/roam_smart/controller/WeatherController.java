@@ -1,7 +1,9 @@
 package com.jsp.roam_smart.controller;
 
+import com.jsp.roam_smart.dto.WeatherDTO;
 import com.jsp.roam_smart.service.weather.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,7 +14,7 @@ public class WeatherController {
     private WeatherService weatherService;
 
     @GetMapping("/{city}")
-    public String getWeather(@PathVariable String city) {
-        return weatherService.getWeatherByCity(city);
+    public ResponseEntity<WeatherDTO> getWeather(@PathVariable String city) {
+        return ResponseEntity.ok(weatherService.getWeather(city));
     }
 }
