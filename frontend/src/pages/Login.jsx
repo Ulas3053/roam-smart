@@ -18,7 +18,7 @@ const Login = () => {
       console.log(response.data);
       localStorage.setItem('token', response.data.token); // optional
       setMessage('Login successful!');
-      setTimeout(() => navigate('/dashboard'), 1500); // adjust path as needed
+      setTimeout(() => navigate('/homepage'), 1500); // adjust path as needed
     } catch (err) {
       console.error(err);
       setMessage('Invalid email or password.');
@@ -26,6 +26,7 @@ const Login = () => {
   };
 
   return (
+    <div className="page-wrapper">
     <div className="login-layout">
       <div className="login-left">
         <div className="form-wrapper">
@@ -58,6 +59,7 @@ const Login = () => {
           <p className="tagline">Explore smarter. Plan better.<br />Your intelligent travel partner.</p>
         </div>
       </div>
+    </div>
     </div>
   );
 };
