@@ -38,8 +38,11 @@ public class PlaceSearchController {
         return ResponseEntity.status(200).body(map);
     }
     @GetMapping("/custom-itinerary")
-    public String generateItinerary(@RequestParam String place,@RequestParam Long budget,@RequestParam int days) {
-    return customItinerayService.getCustomItineray(place, budget, days);
-}
+    public ResponseEntity<Map<String, Object>> generateItinerary(@RequestParam String place,@RequestParam Long budget,@RequestParam int days) {
+        Map<String,Object> map=new LinkedHashMap<>();
+        map.put("message", "Custom itinerary for the city");
+        map.put("custom itinerary",customItinerayService.getCustomItineray(place, budget, days) );
+        return ResponseEntity.status(200).body(map);
+    }
     
 }
