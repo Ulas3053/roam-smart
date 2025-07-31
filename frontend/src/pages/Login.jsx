@@ -18,7 +18,7 @@ const Login = () => {
       console.log(response.data);
       localStorage.setItem('token', response.data.token); // optional
       setMessage('Login successful!');
-      setTimeout(() => navigate('/dashboard'), 1500); // adjust path as needed
+      setTimeout(() => navigate('/homepage'), 1500); // adjust path as needed
     } catch (err) {
       console.error(err);
       setMessage('Invalid email or password.');
