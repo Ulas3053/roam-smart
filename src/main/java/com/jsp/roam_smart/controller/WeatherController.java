@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/weather")
+@CrossOrigin(origins = "*")
 public class WeatherController {
 
     @Autowired
