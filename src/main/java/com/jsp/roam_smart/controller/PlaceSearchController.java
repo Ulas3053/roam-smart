@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,6 @@ import com.jsp.roam_smart.service.custom_itinerary.CustomItinerayService;
 import com.jsp.roam_smart.service.search_place.PlaceAround;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -30,6 +30,7 @@ public class PlaceSearchController {
     private CustomItinerayService customItinerayService;
     
     @GetMapping("/explore")
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> explorePlaces(@RequestParam String place) {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("message", "List of places are displayed here");
@@ -38,6 +39,7 @@ public class PlaceSearchController {
         return ResponseEntity.status(200).body(map);
     }
     @GetMapping("/custom-itinerary")
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> generateItinerary(@RequestParam String place,@RequestParam Long budget,@RequestParam int days) {
         Map<String,Object> map=new LinkedHashMap<>();
         map.put("message", "Custom itinerary for the city");

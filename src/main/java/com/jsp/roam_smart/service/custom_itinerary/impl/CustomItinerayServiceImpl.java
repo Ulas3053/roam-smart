@@ -1,11 +1,10 @@
 package com.jsp.roam_smart.service.custom_itinerary.impl;
 
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.HttpHeaders;
@@ -23,18 +22,18 @@ public class CustomItinerayServiceImpl implements CustomItinerayService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Value("${openrouter.api.key}")
+    private String apiKey;
+
     public String getCustomItineray(String place, Long budget, int days) {
         String url = "https://openrouter.ai/api/v1/chat/completions";
-        String apiKey = "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";
-
-        // Headers
+        
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(apiKey);
         headers.set("User-Agent", "https://roamsmart.ai");
         headers.set("X-Title", "RoamSmart Itinerary Generator");
 
-        // JSON request body
         String requestBody = """
         {
           "model": "mistralai/mixtral-8x7b-instruct",
@@ -47,10 +46,8 @@ public class CustomItinerayServiceImpl implements CustomItinerayService {
         }
         """.formatted(days, place, budget);
 
-        // Entity
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
-        // API call
         ResponseEntity<Map> response = restTemplate.exchange(
             url,
             HttpMethod.POST,
