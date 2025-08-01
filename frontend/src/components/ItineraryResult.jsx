@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
-import '../css/itinerary.css';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import "../css/itinerary.css";
 
 const ItineraryResult = () => {
   const { state } = useLocation();
@@ -9,7 +9,8 @@ const ItineraryResult = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  if (!state) return <p className="itinerary-error">No itinerary data provided.</p>;
+  if (!state)
+    return <p className="itinerary-error">No itinerary data provided.</p>;
 
   const { place, selectedPlaces = [], budget, days, people } = state;
 
@@ -20,19 +21,24 @@ const ItineraryResult = () => {
       try {
         const token = localStorage.getItem("token");
         const payload = {
-          mainPlace: place,
-          selectedPlaces,
+          mainPlace: place?.name || place,
+          selectedPlaces: selectedPlaces.map((p) => p.name || p),
           budget: Number(budget),
           days: Number(days),
-          people: Number(people)
+          people: Number(people),
         };
-        const res = await axios.post('/api/place-search/custom-itinerary', payload, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+
+        const res = await axios.post(
+          "/api/place-search/custom-itinerary",
+          payload,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setItinerary(res.data);
       } catch (err) {
         console.error(err);
-        setError("Failed to generate itinerary. Try again."); 
+        setError("Failed to generate itinerary. Try again.");
       } finally {
         setLoading(false);
       }
@@ -40,9 +46,11 @@ const ItineraryResult = () => {
     fetchItinerary();
   }, [place, selectedPlaces, budget, days, people]);
 
-  if (loading) return <div className="itinerary-loading">Generating itinerary...</div>;
+  if (loading)
+    return <div className="itinerary-loading">Generating itinerary...</div>;
   if (error) return <div className="itinerary-error">{error}</div>;
-  if (!itinerary) return <div className="itinerary-error">No itinerary received.</div>;
+  if (!itinerary)
+    return <div className="itinerary-error">No itinerary received.</div>;
 
   // Extract raw text (fallback) and attempt to split structured part if present
   const rawText = itinerary.itinerary || itinerary["custom itinerary"] || "";
@@ -50,7 +58,7 @@ const ItineraryResult = () => {
   let structured = null;
 
   // If you ever append a separator like ---JSON--- with JSON after it, attempt to split
-  const separator = '---JSON---';
+  const separator = "---JSON---";
   if (rawText.includes(separator)) {
     const [before, after] = rawText.split(separator);
     humanReadable = before.trim();
@@ -67,14 +75,20 @@ const ItineraryResult = () => {
       <h2>Itinerary</h2>
 
       <div className="summary">
-        <p><strong>Budget:</strong> ₹{budget}</p>
-        <p><strong>Days:</strong> {days}</p>
-        <p><strong>People:</strong> {people}</p>
+        <p>
+          <strong>Budget:</strong> ₹{budget}
+        </p>
+        <p>
+          <strong>Days:</strong> {days}
+        </p>
+        <p>
+          <strong>People:</strong> {people}
+        </p>
         <p>
           <strong>Based on:</strong>{" "}
           {selectedPlaces.length
             ? selectedPlaces.map((p) => p.name).join(", ")
-            : (place?.name || place)}
+            : place?.name || place}
         </p>
       </div>
 
@@ -89,21 +103,26 @@ const ItineraryResult = () => {
                   <div className="section-title">Travel:</div> {day.travel}
                 </div>
                 <div className="section">
-                  <div className="section-title">Stay:</div> {day.stay} {day.stayCost ? `(${day.stayCost})` : ""}
+                  <div className="section-title">Stay:</div> {day.stay}{" "}
+                  {day.stayCost ? `(${day.stayCost})` : ""}
                 </div>
                 <div className="section">
                   <div className="section-title">Visit:</div>{" "}
-                  {day.visits && day.visits.map((v, vi) => (
-                    <div key={vi}>
-                      • {v.name} {v.entryFee ? `(Entry: ${v.entryFee})` : ""} — {v.description || ""}
-                    </div>
-                  ))}
+                  {day.visits &&
+                    day.visits.map((v, vi) => (
+                      <div key={vi}>
+                        • {v.name} {v.entryFee ? `(Entry: ${v.entryFee})` : ""}{" "}
+                        — {v.description || ""}
+                      </div>
+                    ))}
                 </div>
                 <div className="section">
                   <div className="section-title">Meals:</div>{" "}
                   {day.meals && (
                     <div>
-                      Breakfast: {day.meals.breakfast || "-"}, Lunch: {day.meals.lunch || "-"}, Dinner: {day.meals.dinner || "-"}
+                      Breakfast: {day.meals.breakfast || "-"}, Lunch:{" "}
+                      {day.meals.lunch || "-"}, Dinner:{" "}
+                      {day.meals.dinner || "-"}
                     </div>
                   )}
                 </div>
@@ -115,10 +134,14 @@ const ItineraryResult = () => {
               </div>
             ))
           ) : (
-            <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{humanReadable}</pre>
+            <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+              {humanReadable}
+            </pre>
           )
         ) : (
-          <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{humanReadable}</pre>
+          <pre style={{ whiteSpace: "pre-wrap", margin: 0 }}>
+            {humanReadable}
+          </pre>
         )}
 
         {/* Cost breakdown if available */}
