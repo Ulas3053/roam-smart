@@ -26,6 +26,7 @@ const Login = () => {
   };
 
   return (
+    <div className="page-wrapper">
     <div className="login-layout">
       <div className="login-left">
         <div className="form-wrapper">
@@ -58,6 +59,7 @@ const Login = () => {
           <p className="tagline">Explore smarter. Plan better.<br />Your intelligent travel partner.</p>
         </div>
       </div>
+    </div>
     </div>
   );
 };

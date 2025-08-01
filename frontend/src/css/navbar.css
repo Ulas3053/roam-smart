@@ -1,7 +1,7 @@
 /* navbar.css */
 .navbar {
   width: 100%;
-  position: sticky;
+ position: sticky;
   top: 0;
   z-index: 999;
   display: flex;
@@ -12,6 +12,7 @@
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 
 .navbar-left {
@@ -36,6 +37,8 @@
   display: flex;
   gap: 25px;
   font-size: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links li {
@@ -45,4 +48,18 @@
 
 .nav-links li:hover {
   opacity: 0.8;
+}
+
+/* Add styles for the anchor tags inside nav-links */
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-links a:hover {
+  background: #0072e6;
+  color: #e0f7ff;
 }
