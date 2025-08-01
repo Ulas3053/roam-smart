@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,7 @@ public class WeatherController {
     private WeatherService weatherService;
 
     @GetMapping("/{city}")
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     public ResponseEntity<Map<String, Object>> getWeather(@PathVariable String city) {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("message", "Weather details for the city");
