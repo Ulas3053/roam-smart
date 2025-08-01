@@ -1,7 +1,10 @@
 package com.jsp.roam_smart.controller;
 
-import com.jsp.roam_smart.dto.WeatherDTO;
 import com.jsp.roam_smart.service.weather.WeatherService;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
