@@ -112,3 +112,37 @@ form button:hover {
 .reg-redirect a:hover {
   text-decoration: underline;
 }
+
+/* Alert/banner for redirect messages */
+.alert {
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  background-color:  #4facfe;
+  color: white;
+}
+
+.alert.info {
+  background: #5ba6ec;
+  border: 1px solid #4da6ff;
+  color: #004aad;
+}
+
+.alert.error {
+  background: #ffe9e9;
+  border: 1px solid #ff5f5f;
+  color: #a80000;
+}
+
+.alert.success {
+  background: #2c94c9;
+  border: 1px solid #2ecc71;
+  color: #1f7f3b;
+}

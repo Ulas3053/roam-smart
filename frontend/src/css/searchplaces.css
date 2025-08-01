@@ -1,105 +1,143 @@
-/* src/components/css/searchplaces.css */
+:root {
+  --brand-blue: #004aad;
+  --gradient-blue: linear-gradient(135deg, #0066ff, #004aad);
+  --soft-bg: #f5f8ff;
+  --radius: 14px;
+  --shadow: 0 24px 50px -10px rgba(0, 74, 173, 0.12);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 .search-places-container {
   width: 100%;
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
+  margin: 2.5rem auto;
+  padding: 2.5rem 2rem;
+  background-color: #ffffff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  font-family: 'Inter', system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  color: #1e2d44;
+  overflow: hidden;
 }
 
+.search-places-container::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: -40px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 40% 40%, rgba(0, 74, 173, 0.08), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.search-places-container h2 {
+  font-size: 1.95rem;
+  margin-bottom: 4px;
+  color: var(--brand-blue);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.subheading {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #5f7fbf;
+  margin-bottom: 1.25rem;
+}
 
 .input-group {
   display: flex;
-  justify-content: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  max-width: 680px;
+  margin: 0.5rem auto 1.5rem;
+  position: relative;
 }
 
 .input-group input {
-  width: 300px;
-  padding: 0.75rem;
+  flex: 1;
+  padding: 14px 16px;
   font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  border: 1px solid #d7e3f5;
+  background: #f9fcff;
+  outline: none;
+  transition: var(--transition);
+  box-shadow: inset 0 8px 18px rgba(0, 74, 173, 0.02);
+}
+
+.input-group input:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 18px rgba(0, 74, 173, 0.15);
 }
 
 .input-group button {
-  padding: 0.75rem 1.5rem;
-  background-color: #004aad;
+  padding: 0 1.75rem;
+  background: var(--gradient-blue);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 140px;
+  box-shadow: 0 18px 42px -8px rgba(0, 74, 173, 0.3);
 }
 
 .input-group button:hover {
-  background-color: #007be5;
+  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
 .info-msg {
   text-align: center;
-  color: #555;
+  color: #556e9f;
   font-style: italic;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
+  background: rgba(243, 246, 255, 0.8);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d7e3f5;
+  font-size: 0.95rem;
 }
 
-/* .places-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.place-card {
-  padding: 1rem;
-  background-color: #f5f8ff;
-  border-left: 5px solid #00cfff;
-  border-radius: 10px;
-} */
-/* .generate-btn {
-  margin-top: 10px;
-  padding: 0.5rem 1rem;
-  background-color: #00cfff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.generate-btn:hover {
-  background-color: #009acc;
-} */
-/* Weather box styling */
 .weather-box {
   background-color: #e8f5ff;
   padding: 1.75rem 1.5rem;
   margin: 1.5rem auto;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 115, 255, 0.08);
-  max-width: 800px;
+  box-shadow: 0 14px 36px rgba(0, 115, 255, 0.07);
+  max-width: 900px;
   position: relative;
+  border: 1px solid rgba(0, 74, 173, 0.08);
 }
 
 .weather-header {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  margin-bottom: 1rem;
+  align-items: center;
   gap: 0.5rem;
-  
+  margin-bottom: 1rem;
+}
+
+.weather-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--brand-blue);
 }
 
 .weather-main {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-top: 0.5rem;
+  margin-top: 4px;
 }
 
 .weather-icon {
@@ -107,21 +145,23 @@
   border-radius: 50%;
   width: 70px;
   height: 70px;
+  padding: 6px;
+  box-shadow: 0 12px 28px rgba(0, 74, 173, 0.08);
 }
 
 .weather-desc .temp {
   font-size: 1.75rem;
-  font-weight: bold;
-  color: #004aad;
+  font-weight: 700;
+  color: var(--brand-blue);
   display: flex;
   align-items: baseline;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .weather-desc .feels {
   font-size: 0.85rem;
   font-weight: 500;
-  margin-left: 8px;
+  margin-left: 6px;
   color: #555;
 }
 
@@ -129,50 +169,144 @@
   text-transform: capitalize;
   margin-top: 4px;
   font-size: 1rem;
-  color: #333;
+  color: #2f4365;
 }
 
 .weather-details {
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 2.5rem;
   justify-content: space-evenly;
   margin-top: 1rem;
   font-size: 0.95rem;
   color: #333;
 }
 
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.place-card {
+  position: relative;
+  padding: 1rem 1.25rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  box-shadow: 0 18px 48px -6px rgba(0, 115, 255, 0.08);
+  transition: var(--transition);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.place-card h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #1f3566;
+}
+
+.place-card p {
+  margin: 2px 0;
+  font-size: 0.85rem;
+  color: #4a577d;
+}
+
+.place-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 26px 60px -8px rgba(0, 115, 255, 0.12);
+}
+
+.place-card.selected {
+  border: 2px solid var(--brand-blue);
+  background-color: #dce9ff;
+  transform: scale(1.02);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--brand-blue);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
 .itinerary-cta {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   text-align: center;
 }
 
 .generate-btn {
-  padding: 0.75rem 1.5rem;
-  background-color: #00cfff;
+  padding: 0.85rem 1.9rem;
+  background: var(--gradient-blue);
   color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 10px;
+  font-weight: 700;
   cursor: pointer;
-  transition: filter 0.2s ease;
+  font-size: 1rem;
+  letter-spacing: 0.6px;
+  transition: var(--transition);
+  min-width: 240px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 20px 50px -10px rgba(0, 74, 173, 0.35);
 }
 
-.generate-btn:hover {
+.generate-btn:disabled {
+  background: #c5d9f7;
+  cursor: not-allowed;
+  filter: grayscale(30%);
+  box-shadow: none;
+}
+
+.generate-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
   filter: brightness(1.05);
 }
 
-/* ensure places grid is separated from weather */
-.places-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-.place-card {
-  padding: 1rem;
-  background-color: #f5f8ff;
-  border-left: 5px solid #00cfff;
+/* selected summary bar at top of results */
+.selected-summary {
+  background: rgba(0, 74, 173, 0.05);
+  border: 1px solid rgba(0, 74, 173, 0.15);
   border-radius: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 1rem 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.chip {
+  background: #e8f5ff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--brand-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(0, 74, 173, 0.15);
+}
+
+.clear-selection {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: var(--brand-blue);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }

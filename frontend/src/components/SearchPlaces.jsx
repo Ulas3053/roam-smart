@@ -22,7 +22,24 @@ const SearchPlaces = () => {
   const [weatherObj, setWeatherObj] = useState(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [selectedPlaces, setSelectedPlaces] = useState([]);
+
   const navigate = useNavigate();
+
+  const toggleSelectPlace = (p) => {
+    setSelectedPlaces((prev) => {
+      const exists = prev.find(
+        (x) =>
+          x.name === p.name && x.formattedAddress === p.formattedAddress
+      );
+      if (exists)
+        return prev.filter(
+          (x) =>
+            !(x.name === p.name && x.formattedAddress === p.formattedAddress)
+        );
+      return [...prev, p];
+    });
+  };
 
   const handleSearch = async () => {
     if (!place.trim()) return;
@@ -32,6 +49,7 @@ const SearchPlaces = () => {
     setResults([]);
     setRawWeather(null);
     setWeatherObj(null);
+    setSelectedPlaces([]);
 
     const token = localStorage.getItem("token");
 
@@ -70,30 +88,44 @@ const SearchPlaces = () => {
     }
   };
 
-  const handleGenerateItinerary = () => {
-    navigate("/generate-itinerary", { state: { place } });
-  };
-
   return (
     <div className="search-places-container">
       <h2>Search Places Around</h2>
+      <div className="subheading">
+        {selectedPlaces.length
+          ? `You’ve selected ${selectedPlaces.length} place${
+              selectedPlaces.length > 1 ? "s" : ""
+            } — click on cards to toggle.`
+          : "Search a city to explore top places and generate a custom itinerary."}
+      </div>
+
       <div className="input-group">
         <input
+          aria-label="Search place"
           type="text"
           value={place}
           onChange={(e) => setPlace(e.target.value)}
           placeholder="Enter a place (e.g., Bengaluru)"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleSearch();
+            }
+          }}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch} aria-label="Search">
+          Search
+        </button>
       </div>
 
       {loading && <p className="info-msg">Loading...</p>}
       {message && <p className="info-msg">{message}</p>}
 
+      
       {weatherObj && (
         <div className="weather-box">
           <div className="weather-header">
-            <h3>Weather in {rawWeather?.city || place}</h3>
+            <h3>Weather in {rawWeather?.city ||(place && place.toUpperCase())}</h3>
             {weatherObj.weather && weatherObj.weather[0] && (
               <div className="weather-main">
                 <img
@@ -138,27 +170,71 @@ const SearchPlaces = () => {
         </div>
       )}
 
-      <h1>Places to Explore</h1>
-
       <div className="places-grid">
-        {results.map((p, index) => (
-          <div key={index} className="place-card">
-            <h4>{p.name || "Unnamed Location"}</h4>
-            <p>{p.formattedAddress}</p>
-            <p>
-              📍 {p.lat}, {p.lon}
-            </p>
-          </div>
-        ))}
+        {results.map((p, index) => {
+          const isSelected = selectedPlaces.some(
+            (x) =>
+              x.name === p.name &&
+              x.formattedAddress === p.formattedAddress
+          );
+          return (
+            <div
+              key={index}
+              className={`place-card ${isSelected ? "selected" : ""}`}
+              onClick={() => toggleSelectPlace(p)}
+              aria-pressed={isSelected}
+            >
+              <h4>{p.name || "Unnamed Location"}</h4>
+              <p>{p.formattedAddress}</p>
+              <p>
+                📍 {p.lat}, {p.lon}
+              </p>
+              {isSelected && <div className="badge">Selected</div>}
+            </div>
+          );
+        })}
       </div>
 
-      {results.length > 0 && (
+      {selectedPlaces.length > 0 && (
+        <div className="selected-summary">
+          <div>
+            <strong>Selected:</strong>{" "}
+            {selectedPlaces.map((p, i) => (
+              <span className="chip" key={i}>
+                {p.name || "Unnamed"}
+              </span>
+            ))}
+          </div>
+          <button
+            className="clear-selection"
+            onClick={() => setSelectedPlaces([])}
+            aria-label="Clear selected places"
+          >
+            Clear
+          </button>
+        </div>
+      )}
+
+
+      {(results.length > 0 || selectedPlaces.length > 0) && (
         <div
           className="itinerary-cta"
           style={{ textAlign: "center", marginTop: "1.5rem" }}
         >
-          <button className="generate-btn" onClick={handleGenerateItinerary}>
-            Generate Itinerary for "{place}"
+          <button
+            className="generate-btn"
+            onClick={() =>
+              navigate("/generate-itinerary", {
+                state: { place, selectedPlaces },
+              })
+            }
+            disabled={selectedPlaces.length === 0}
+          >
+            {selectedPlaces.length
+              ? `Generate Itinerary (${selectedPlaces.length} selected)`
+              : `Generate Itinerary for "${
+                  (place && place.toUpperCase()) || "Selected"
+                }"`}
           </button>
         </div>
       )}
