@@ -1,14 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import "../css/login.css";
 import logo from "../images/RoamSmart Logo.png";
 
+
 const Login = () => {
+  const location = useLocation();
+  const incomingMessage = location.state?.message || '';
+  const [alertMessage, setAlertMessage] = useState(incomingMessage);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+   useEffect(() => {
+    if (incomingMessage) {
+      setAlertMessage(incomingMessage);
+      const t = setTimeout(() => setAlertMessage(''), 5000);
+      return () => clearTimeout(t);
+    }
+  }, [incomingMessage]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,10 +39,17 @@ const Login = () => {
   };
 
   return (
+    
     <div className="page-wrapper">
       <div className="login-layout">
         <div className="login-left">
           <div className="form-wrapper">
+            
+          {alertMessage && 
+          <div className="alert">
+            {alertMessage}
+            </div>}
+
             <h2>Login to Your Account</h2>
             <form onSubmit={handleSubmit}>
               <input

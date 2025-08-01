@@ -1,61 +1,286 @@
-/* src/css/itinerary.css */
+:root {
+  --brand-blue: #004aad;
+  --brand-light: #e6f0ff;
+  --radius: 14px;
+  --shadow: 0 20px 40px -10px rgba(0, 74, 173, 0.15);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 8px;
+  --input-bg: #f9fcff;
+}
+
+body {
+  background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 60%);
+  font-family: 'Inter', system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  color: #1e2d44;
+}
 
 .itinerary-form-container,
 .itinerary-result-container {
-  max-width: 500px;
+  max-width: 720px;
   margin: 3rem auto;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', sans-serif;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+.itinerary-form-container::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -80px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 74, 173, 0.15), transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .itinerary-form-container h2,
 .itinerary-result-container h2 {
   text-align: center;
-  color: #004aad;
-  margin-bottom: 1.5rem;
+  color: var(--brand-blue);
+  margin-bottom: 0.25rem;
+  font-size: 1.9rem;
+  letter-spacing: 0.5px;
 }
 
-.itinerary-form-container form {
+.itinerary-form-container .subheading {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #556e9f;
+  margin-bottom: 1rem;
+}
+
+.selected-places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.place-chip {
+  background: rgba(0, 74, 173, 0.08);
+  color: var(--brand-blue);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+
+.place-chip .count {
+  background: var(--brand-blue);
+  color: #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.25rem 1.75rem;
+  margin-top: 1rem;
+}
+
+.field {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
-.itinerary-form-container label {
-  font-weight: bold;
-  color: #333;
-}
-
-.itinerary-form-container input {
-  padding: 0.75rem;
+.field input {
+  padding: 14px 14px 12px;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  border: 1px solid #d7e3f5;
+  border-radius: 10px;
+  background: var(--input-bg);
+  outline: none;
+  transition: var(--transition);
+  width: 100%;
+  appearance: none;
 }
 
-.itinerary-form-container button {
-  padding: 0.75rem;
-  background-color: #004aad;
-  color: white;
+.field input:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 18px rgba(0, 74, 173, 0.15);
+}
+
+.field label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #556e9f;
+}
+
+.helper-text {
+  font-size: 0.65rem;
+  margin-top: 4px;
+  color: #7a8fbf;
+}
+
+.button-row {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.primary-btn {
+  position: relative;
+  padding: 0.95rem 2.2rem;
+  background: linear-gradient(135deg, #0066ff, #004aad);
+  color: #fff;
+  font-weight: 700;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  letter-spacing: 0.7px;
+  min-width: 220px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+  box-shadow: 0 18px 40px -10px rgba(0, 74, 173, 0.3);
 }
 
-.itinerary-form-container button:hover {
-  background-color: #007be5;
+.primary-btn:disabled {
+  filter: grayscale(60%) brightness(1.05);
+  cursor: not-allowed;
+  background: #c5d9f7;
+  box-shadow: none;
+}
+
+.primary-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px -8px rgba(0, 74, 173, 0.35);
+}
+
+.tagline {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+  color: #8aa2cb;
+}
+
+@media (max-width: 880px) {
+  .itinerary-form-container {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.itinerary-result-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin: 1rem 0 1.5rem;
+  background: rgba(238, 246, 255, 0.8);
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid #d7e3f5;
+  font-size: 0.95rem;
+  color: #1f3566;
+}
+
+.summary p {
+  margin: 0;
+  flex: 1 1 160px;
 }
 
 .plan-box {
-  margin-top: 2rem;
+  background: #f9fcff;
+  padding: 1.5rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 74, 173, 0.08);
+  box-shadow: 0 20px 40px -10px rgba(0, 74, 173, 0.08);
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+.day-block {
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e3e9f8;
+}
+
+.day-block:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.day-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #004aad;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section {
+  margin-left: 6px;
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-weight: 600;
+  display: inline-block;
+  margin-right: 4px;
+  color: #2a4365;
+}
+
+.cost-breakdown {
+  background: #eef6ff;
   padding: 1rem;
-  background-color: #f0f8ff;
-  border-left: 5px solid #00cfff;
-  border-radius: 8px;
-  color: #444;
+  border-radius: 10px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.total-cost {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-top: 4px;
+  color: #0f2f68;
+}
+
+.itinerary-error,
+.itinerary-loading {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 235, 230, 0.9);
+  border: 1px solid #ffb3a7;
+  border-radius: 10px;
+  margin: 1rem 0;
+  color: #8a2a1f;
+  font-weight: 600;
+}
+
+.inline-highlight {
+  background: rgba(0, 74, 173, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
 }
