@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jsp.roam_smart.config.JwtTokenProvider;
 import com.jsp.roam_smart.dto.UserDTO;
+import com.jsp.roam_smart.model.User.Role;
 import com.jsp.roam_smart.service.AuthService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +28,9 @@ public class AuthController {
 
     @Autowired
     AuthService authService;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody UserDTO userDTO, HttpSession session)
@@ -52,9 +58,10 @@ public class AuthController {
         String password = loginData.get("password");
 
         String result = authService.login(email, password); // returns success or throws
+        Role role=authService.getRoleUser(email); 
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("message", result);
-        // map.put("token", jwtToken); // Add this later if you implement JWT
+        map.put("token", jwtTokenProvider.generateToken(email, role.toString())); // Add this later if you implement JWT
 
         return ResponseEntity.ok(map);
     }

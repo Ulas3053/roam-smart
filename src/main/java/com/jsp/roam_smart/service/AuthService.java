@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.jsp.roam_smart.exception.BadRequestException;
 import com.jsp.roam_smart.dto.UserDTO;
 import com.jsp.roam_smart.model.User;
+import com.jsp.roam_smart.model.User.Role;
 import com.jsp.roam_smart.repository.UserRepository;
 import com.jsp.roam_smart.service.mail.OtpMailService;
 import com.jsp.roam_smart.service.mail.RegestrationEmail;
@@ -94,6 +95,12 @@ public class AuthService {
         // Optional: Generate JWT token here if needed
 
         return "Login successful!";
+    }
+
+    public Role getRoleUser(String email) {
+        return userRepository.findByEmail(email)
+                .map(User::getRole)
+                .orElseThrow(() -> new BadRequestException("User not found"));
     }
 
 }

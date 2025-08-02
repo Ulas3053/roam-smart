@@ -14,8 +14,8 @@ const HomePage = () => {
         <p className="subtitle">Start exploring or generate your perfect itinerary.</p>
 
         <div className="feature-box" id="search-places">
-          <h3>Search Places Around</h3>
-          <p>A search bar to fetch weather and nearby attractions...</p>
+          {/* <h3>Search Places Around</h3>
+          <p>A search bar to fetch weather and nearby attractions...</p> */}
             <SearchPlaces />
         </div>
 
